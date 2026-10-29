@@ -1,0 +1,138 @@
+/* ==========================================================
+   בונים את המוח · Components v1.1
+   רכיבים משותפים לספר המותג ולאתר. נשען על tokens.css.
+   ========================================================== */
+
+/* ---------- Utilities ---------- */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+/* ---------- Logo mark (symbol-driven, themeable) ---------- */
+.mark{display:block;width:64px;height:64px;--mk-ink:#0F1C2B;--mk-mint:#157A69;--mk-amber:#E6A82E;--mk-berry:#B8325F;--mk-o1:.6;--mk-o2:1;--mk-o3:.8}
+.mark.on-dark{--mk-ink:#F8F4EC;--mk-mint:#4CC3AE;--mk-amber:#F2BC4B;--mk-berry:#FF8FB1}
+.mark.mono-ink{--mk-ink:#0F1C2B;--mk-mint:#0F1C2B;--mk-amber:#0F1C2B;--mk-berry:#0F1C2B;--mk-o1:1;--mk-o2:1;--mk-o3:1}
+.mark.mono-white{--mk-ink:#fff;--mk-mint:#fff;--mk-amber:#fff;--mk-berry:#fff;--mk-o1:1;--mk-o2:1;--mk-o3:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mark.auto{--mk-ink:#F8F4EC;--mk-mint:#4CC3AE;--mk-amber:#F2BC4B;--mk-berry:#FF8FB1}}
+:root[data-theme="dark"] .mark.auto{--mk-ink:#F8F4EC;--mk-mint:#4CC3AE;--mk-amber:#F2BC4B;--mk-berry:#FF8FB1}
+
+.lockup{--s:2.4rem;display:inline-flex;align-items:center;gap:calc(var(--s)*.42);font-size:var(--s);line-height:1}
+.lockup .mark{width:calc(var(--s)*1.7);height:calc(var(--s)*1.7)}
+.lockup__text{display:flex;flex-direction:column;gap:.18em}
+.lockup__he{font-family:var(--font-display);font-weight:800;font-size:1em;letter-spacing:-.02em;line-height:1}
+.lockup__en{font-family:var(--font-display);font-weight:500;font-size:.3em;letter-spacing:.36em;text-transform:uppercase;line-height:1;opacity:.85;text-align:start}
+.lockup.stacked{flex-direction:column;gap:calc(var(--s)*.3)}
+.lockup.stacked .lockup__text{align-items:center}
+.lockup.stacked .lockup__en{text-align:center}
+
+/* icon tile: a solid cell, like one cell of the mark (corner = 31% of the side) */
+.icon-tile{--c:var(--primary);--on-c:var(--on-primary);--s:48px;width:var(--s);height:var(--s);border-radius:calc(var(--s)*.31);display:grid;place-items:center;margin-bottom:var(--space-4);background:var(--c);color:var(--on-c);flex:none}
+/* level variables (after .icon-tile so they win): every colored component reads --c / --on-c / --c-text */
+.l1,.l1c{--c:var(--fill-mint);--on-c:var(--on-mint);--c-text:var(--text-mint)}
+.l2,.l2c{--c:var(--fill-amber);--on-c:var(--on-amber);--c-text:var(--text-amber)}
+.l3,.l3c{--c:var(--fill-berry);--on-c:var(--on-berry);--c-text:var(--text-berry)}
+.i{--c:var(--fill-blue);--on-c:var(--on-blue);--c-text:var(--text-blue)}
+
+.icon-tile i,.icon-tile svg{width:calc(var(--s)*.48);height:calc(var(--s)*.48);stroke-width:2}
+
+/* ---------- Dots (legends) ---------- */
+.dot{width:14px;height:14px;border-radius:5px;flex:none;margin-top:.5em}
+.dot.mint{background:var(--mint-600)}.dot.amber{background:var(--amber-500)}.dot.berry{background:var(--berry-600)}
+.dot.ink{background:var(--ink-900);opacity:.7}.dot.zero{border:2px dashed var(--slate-300)}
+
+/* ---------- Components ---------- */
+/* course card: colored head with the number + the mark filling up, standing on a step in the course color */
+.course{display:flex;flex-direction:column;background:var(--surface);border:2px solid var(--edge);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);box-shadow:calc(var(--step-lg)*-1) var(--step-lg) 0 var(--c);transition:transform var(--t-fast),box-shadow var(--t-fast)}
+.course__head{background:var(--c);color:var(--on-c);display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);padding:18px 20px 16px;border-bottom:2px solid var(--edge);min-height:118px}
+.course__num{font-family:var(--font-display);font-weight:800;font-size:3.75rem;line-height:.78;letter-spacing:-.04em;direction:ltr}
+.course__head .mark{width:58px;height:58px;--mk-ink:currentColor;--mk-mint:currentColor;--mk-amber:currentColor;--mk-berry:currentColor;--mk-o1:.28;--mk-o2:.28;--mk-o3:.28}
+.course__head .mark.lv1{--mk-amber:color-mix(in srgb,currentColor 28%,transparent);--mk-berry:color-mix(in srgb,currentColor 28%,transparent)}
+.course__head .mark.lv2{--mk-berry:color-mix(in srgb,currentColor 28%,transparent)}
+.course__body{display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-5);flex:1}
+.course__lvl{font-family:var(--font-display);font-weight:600;font-size:.8125rem;color:var(--text-muted)}
+.course h4{font-size:1.5rem;font-weight:700;margin:0}
+.course p{margin:0;color:var(--text-muted);font-size:1rem}
+.course__go{margin-top:auto;padding-top:var(--space-3);font-family:var(--font-display);font-weight:600;font-size:.9375rem;display:inline-flex;align-items:center;gap:6px;color:var(--text);text-decoration:underline 2px transparent;text-underline-offset:5px;transition:text-decoration-color var(--t-fast)}
+.course__go svg{transition:transform var(--t-fast)}
+.course:hover,.course.is-hover{transform:translate(3px,-3px);box-shadow:calc(var(--step-lg)*-1 - 3px) calc(var(--step-lg) + 3px) 0 var(--c)}
+.course:hover .course__go,.course.is-hover .course__go{text-decoration-color:var(--c)}
+.course:hover .course__go svg,.course.is-hover .course__go svg{transform:translateX(-4px)}
+.course:active,.course.is-active{transform:translate(calc(var(--step-lg)*-1),var(--step-lg));box-shadow:0 0 0 var(--c);transition-duration:60ms}
+.course:focus-visible,.course.is-focus{outline:3px solid var(--focus);outline-offset:5px}
+
+/* callout: a labelled box; the label is a solid tab sitting on the top edge, like a file divider */
+.callout{position:relative;background:var(--surface);border:2px solid var(--c);border-radius:16px;border-start-start-radius:0;padding:26px var(--space-5) var(--space-4);margin-top:16px}
+.callout__tab{position:absolute;top:-16px;inset-inline-start:-2px;display:inline-flex;align-items:center;gap:6px;height:30px;padding-inline:10px 14px;background:var(--c);color:var(--on-c);font-family:var(--font-display);font-weight:700;font-size:.8125rem;border-radius:9px;border-end-start-radius:0}
+.callout__tab svg{width:16px;height:16px;stroke-width:2.25}
+.callout p{margin:0;font-size:1rem;line-height:1.65}
+.callout.tip{--c:var(--fill-mint);--on-c:var(--on-mint);--c-text:var(--text-mint)}
+.callout.warn{--c:var(--fill-amber);--on-c:var(--on-amber);--c-text:var(--text-amber)}
+.callout.math{--c:var(--fill-blue);--on-c:var(--on-blue);--c-text:var(--text-blue)}
+.callout.err{--c:var(--fill-berry);--on-c:var(--on-berry);--c-text:var(--text-berry)}
+/* the only interactive part of a callout: an optional fold (derivations, long proofs) */
+.callout details{margin-top:var(--space-3);border-top:1.5px dashed var(--border);padding-top:var(--space-3)}
+.callout .fold{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:600;font-size:.9375rem;color:var(--c-text);border-radius:6px;text-decoration:underline 2px transparent;text-underline-offset:5px;transition:text-decoration-color var(--t-fast)}
+.callout summary::-webkit-details-marker{display:none}
+.callout .fold svg{width:18px;height:18px;transition:transform var(--t-fast)}
+.callout .fold:hover,.callout .fold.is-hover{text-decoration-color:currentColor}
+.callout .fold:active,.callout .fold.is-active{opacity:.7}
+.callout .fold:focus-visible,.callout .fold.is-focus{outline:3px solid var(--focus);outline-offset:3px}
+.callout details[open] summary svg,.callout .fold.is-open svg{transform:rotate(180deg)}
+.callout details p{margin-top:var(--space-2)}
+
+.codeblock{background:var(--code-bg);color:var(--code-text);border-radius:var(--radius-md);overflow:hidden;border:1px solid #20364C;direction:ltr;text-align:left}
+.codeblock__bar{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#142538;font-family:var(--font-code);font-size:.8125rem;color:#9FAAB6}
+.codeblock__bar span{display:flex;align-items:center;gap:8px}
+.codeblock pre{margin:0;padding:18px 20px;overflow-x:auto;font-family:var(--font-code);font-size:var(--fs-code);line-height:1.7}
+.codeblock .k{color:var(--code-keyword)}.codeblock .s{color:var(--code-string)}.codeblock .n{color:var(--code-number)}
+.codeblock .f{color:var(--code-function)}.codeblock .c{color:var(--code-comment);font-style:italic}
+
+.dgm{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-5)}
+.dgm svg{width:100%;height:auto;display:block}
+.dgm text{fill:var(--text);font-family:var(--font-body);font-size:16px;font-weight:500}
+.dgm .t-h{font-family:var(--font-display);font-weight:700;font-size:17px;fill:var(--text)}
+.dgm .t-m{font-family:var(--font-code);font-size:14.5px;font-weight:600;fill:var(--text);direction:ltr;unicode-bidi:isolate}
+.dgm .box{stroke-width:2;rx:12}
+.dgm .b0{fill:var(--surface-alt);stroke:var(--sand-200)}
+.dgm .b1{fill:var(--success);fill-opacity:.18;stroke:var(--success)}
+.dgm .b2{fill:var(--warning);fill-opacity:.22;stroke:var(--warning)}
+.dgm .b3{fill:var(--danger);fill-opacity:.18;stroke:var(--danger)}
+.dgm .inner{fill:var(--surface);stroke:var(--warning);stroke-width:1.5;rx:8}
+.dgm .arrow{stroke:var(--text);stroke-width:2;fill:none;marker-end:url(#ah)}
+.dgm .ahead{fill:var(--text)}
+.dgm-legend{display:flex;flex-wrap:wrap;gap:var(--space-5);margin-top:var(--space-4);font-size:1rem;color:var(--text)}
+.dgm-legend span{display:flex;align-items:center;gap:8px}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:1rem;padding:12px 22px;border-radius:999px;border:2px solid var(--primary);background:var(--primary);color:var(--on-primary);text-decoration:none;cursor:pointer;--step-c:var(--amber-500);transition:transform var(--t-fast),box-shadow var(--t-fast),background-color var(--t-fast)}
+.btn.ghost{background:transparent;color:var(--text);--step-c:var(--edge)}
+.btn.soft{background:var(--amber-400);border-color:var(--amber-400);color:var(--ink-900);--step-c:var(--edge)}
+.btn svg{transition:transform var(--t-fast)}
+/* hover: the button steps up onto a hard shadow */
+.btn:hover,.btn.is-hover{transform:translate(2px,-2px);box-shadow:calc(var(--step-sm)*-1) var(--step-sm) 0 var(--step-c)}
+.btn:hover svg,.btn.is-hover svg{transform:translateX(-3px)}
+/* press: back down to the page, a shade darker */
+.btn:active,.btn.is-active{transform:none;box-shadow:none;background:var(--primary-press);border-color:var(--primary-press);transition-duration:60ms}
+.btn.ghost:active,.btn.ghost.is-active{background:var(--surface-alt);border-color:var(--primary)}
+.btn.soft:active,.btn.soft.is-active{background:var(--amber-500);border-color:var(--amber-500)}
+.btn:focus-visible,.btn.is-focus{outline:3px solid var(--focus);outline-offset:3px}
+.btn[aria-disabled="true"],.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;pointer-events:none}
+
+/* level tag: a solid label with the mark's diagonal as its glyph. A label, not a button. */
+.lvl-tag{display:inline-flex;align-items:center;gap:8px;height:28px;padding-inline:9px 12px;border-radius:8px;background:var(--c);color:var(--on-c);font-family:var(--font-display);font-weight:600;font-size:.8125rem;line-height:1;white-space:nowrap}
+.diag{display:grid;grid-template-columns:repeat(3,5px);grid-template-rows:repeat(3,5px);gap:1.5px;direction:ltr;flex:none}
+.diag i{display:block;border-radius:1.5px;background:currentColor;opacity:.3}
+.diag i:nth-child(1){grid-area:3/3}.diag i:nth-child(2){grid-area:2/2}.diag i:nth-child(3){grid-area:1/1}
+.l1 .diag i:nth-child(-n+1),.l2 .diag i:nth-child(-n+2),.l3 .diag i{opacity:1}
+
+/* filter tag: the interactive version (course catalogue filter). aria-pressed = selected */
+.ftag{appearance:none;display:inline-flex;align-items:center;gap:8px;height:34px;padding-inline:11px 14px;border-radius:10px;border:2px solid var(--edge);background:var(--surface);color:var(--text);font-family:var(--font-display);font-weight:600;font-size:.875rem;cursor:pointer;transition:transform var(--t-fast),box-shadow var(--t-fast),background-color var(--t-fast)}
+.ftag .diag{color:var(--c-text)}
+.ftag:hover,.ftag.is-hover{transform:translate(1.5px,-1.5px);box-shadow:calc(var(--step-sm)*-1) var(--step-sm) 0 var(--c)}
+.ftag:active,.ftag.is-active{transform:none;box-shadow:none;transition-duration:60ms}
+.ftag[aria-pressed="true"]{background:var(--c);color:var(--on-c);border-color:var(--edge)}
+.ftag[aria-pressed="true"] .diag{color:var(--on-c)}
+.ftag:focus-visible,.ftag.is-focus{outline:3px solid var(--focus);outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){
+  .btn,.ftag,.course,.course__go svg,.btn svg,.callout .fold,.callout .fold svg{transition:none}
+  .btn:hover,.ftag:hover,.course:hover,.course:active{transform:none}
+}

@@ -1,0 +1,2 @@
+ALTER TABLE projects ADD COLUMN project_overview TEXT NOT NULL DEFAULT '';
+ALTER TABLE projects ADD COLUMN stage_details TEXT NOT NULL DEFAULT '';
