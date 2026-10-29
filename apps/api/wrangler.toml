@@ -5,8 +5,8 @@ compatibility_date = "2024-12-30"
 [[d1_databases]]
 binding = "DB"
 database_name = "what-i-do"
-database_id = "replace-with-production-database-id"
+database_id = "474043de-f67c-4ef3-bfc1-bd040d224ca7"
 migrations_dir = "../../db/migrations"
 
 [vars]
-ALLOWED_ORIGIN = "http://localhost:5173"
+ALLOWED_ORIGIN = "https://what-i-do.pages.dev"
